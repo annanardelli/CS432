@@ -1,0 +1,42 @@
+DROP TABLE keywords;
+DROP TABLE read;
+DROP TABLE users;
+DROP TABLE author;
+DROP TABLE book;
+
+CREATE TABLE book (
+isbn INTEGER NOT NULL,
+title VARCHAR(100) NOT NULL,
+genre VARCHAR(50) NOT NULL,
+numOfPages INTEGER NOT NULL,
+aid INTEGER NOT NULL,
+PRIMARY KEY (isbn),
+CHECK (numOfPages > 0));
+
+CREATE TABLE author (
+aid INTEGER NOT NULL,
+aName VARCHAR(50) NOT NULL,
+PRIMARY KEY (aid));
+
+CREATE TABLE users (
+userID INTEGER NOT NULL,
+uname VARCHAR(50) NOT NULL,
+email VARCHAR(50) NOT NULL,
+PRIMARY KEY (userId));
+
+CREATE TABLE read (
+userID INTEGER NOT NULL,
+isbn INTEGER NOT NULL,
+startDate VARCHAR(30),
+endDate VARCHAR(30),
+countPages INTEGER,
+status VARCHAR(20) NOT NULL,
+owned CHAR NOT NULL,
+PRIMARY KEY (userId, isbn),
+FOREIGN KEY (userId) REFERENCES users(userId),
+FOREIGN KEY (isbn) REFERENCES book(isbn));
+ 
+CREATE TABLE keywords (
+isbn INTEGER NOT NULL,
+key VARCHAR(25),
+FOREIGN KEY (isbn) REFERENCES book(isbn));
